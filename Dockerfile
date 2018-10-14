@@ -1,8 +1,8 @@
 FROM node:10-slim
 
 LABEL version="1.0.0"
-LABEL repository="http://github.com/actions/aws"
-LABEL homepage="http://github.com/actions/aws"
+LABEL repository="http://github.com/actions/heroku"
+LABEL homepage="http://github.com/actions/heroku"
 LABEL maintainer="GitHub Actions <support+actions@github.com>"
 
 LABEL "com.github.actions.name"="GitHub Action for Heroku"
