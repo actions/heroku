@@ -1,6 +1,6 @@
 # GitHub Deployer for Heroku
 
-The GitHub Deployer for [Heroku](https://heroku.com/) task wraps the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) to enable common Heroku commands.
+This Action wraps the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) to enable common Heroku commands.
 
 ## Usage
 An example workflow to build a docker container from source and push and release the image to an existing application on Heroku:
