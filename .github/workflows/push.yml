@@ -1,0 +1,42 @@
+on: push
+name: Build and Publish
+jobs:
+  docker:
+    name: Docker
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Lint
+      uses: docker://replicated/dockerfilelint
+      with:
+        args: Dockerfile
+    - name: Test
+      uses: actions/bin/bats@master
+      with:
+        args: test/*.bats
+    - name: Shell Lint
+      uses: actions/bin/shellcheck@master
+      with:
+        args: entrypoint.sh
+    - name: Publish Filter
+      uses: actions/bin/filter@master
+      with:
+        args: branch master
+    - name: Build
+      uses: actions/docker/cli@master
+      with:
+        args: build -t heroku .
+    - name: Login
+      uses: actions/docker/login@master
+      env:
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+    - name: Tag
+      uses: actions/docker/tag@master
+      with:
+        args: heroku github/heroku --no-latest
+    - name: Publish
+      uses: actions/docker/cli@master
+      with:
+        args: push github/heroku
