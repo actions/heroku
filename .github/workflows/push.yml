@@ -1,12 +1,13 @@
 on: push
 name: Build and Publish
 jobs:
-  dockerLint:
-    name: Docker Lint
+  docker:
+    name: Docker
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Docker Lint
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Lint
       uses: docker://replicated/dockerfilelint
       with:
         args: Dockerfile
@@ -26,16 +27,16 @@ jobs:
       uses: actions/docker/cli@master
       with:
         args: build -t heroku .
-    - name: Docker Login
+    - name: Login
       uses: actions/docker/login@master
       env:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-    - name: Docker Tag
+    - name: Tag
       uses: actions/docker/tag@master
       with:
         args: heroku github/heroku --no-latest
-    - name: Docker Publish
+    - name: Publish
       uses: actions/docker/cli@master
       with:
         args: push github/heroku
