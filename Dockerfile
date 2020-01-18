@@ -1,4 +1,4 @@
-FROM node:10-slim
+FROM node:10.18-stretch-slim
 
 LABEL version="2.0.0"
 LABEL repository="http://github.com/actions/heroku"
