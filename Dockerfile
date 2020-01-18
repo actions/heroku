@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:10.18-stretch-slim
 
 LABEL version="2.0.0"
 LABEL repository="http://github.com/actions/heroku"
@@ -12,7 +12,7 @@ LABEL "com.github.actions.color"="purple"
 COPY LICENSE README.md THIRD_PARTY_NOTICE.md /
 
 ENV DOCKERVERSION=18.06.1-ce
-RUN apt-get update && apt-get -y --no-install-recommends install curl \
+RUN apt-get update && apt-get -y --no-install-recommends install ca-certificates curl \
   && curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz \
   && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 \
                  -C /usr/local/bin docker/docker \
